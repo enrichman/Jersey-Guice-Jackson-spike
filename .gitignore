@@ -1,0 +1,14 @@
+# IntelliJ IDEA files #
+#######################
+*.iws
+*.iml
+*.ipr
+.idea/
+target/
+
+# Eclipse files
+*.project
+*.settings
+
+# elasticsearch
+data/

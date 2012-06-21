@@ -5,10 +5,13 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.sourcesense.spike.jerseyguice.ApplicationsManager;
 import com.sourcesense.spike.jerseyguice.ProductionApplicationsManager;
+import com.sun.jersey.api.core.ClasspathResourceConfig;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
+import com.sun.jersey.spi.container.servlet.ServletContainer;
 
+import javax.ws.rs.ApplicationPath;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +23,12 @@ public class ProductionServiceConfig extends GuiceServletContextListener {
             @Override
             protected void configureServlets() {
                 Map<String, String> initParams = new HashMap<String, String>();
-                initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, "com.sourcesense.spike.jerseyguice.service");
+                //initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES,
+                        //"com.sourcesense.spike.jerseyguice.service");
+                initParams.put(
+                        ServletContainer.RESOURCE_CONFIG_CLASS,
+                        ClasspathResourceConfig.class.getName()
+                );
                 bind(ApplicationsManagerService.class);
                 bind(ApplicationsManager.class).to(ProductionApplicationsManager.class);
                 // Route all requests through GuiceContainer
